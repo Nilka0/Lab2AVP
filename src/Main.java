@@ -10,24 +10,24 @@ public class Main {
 
         int[] arr1 = arr;
         long startTime = System.currentTimeMillis();
-        Arrays.sort(arr); // Обычная сортировка в один поток
+        Arrays.sort(arr);
         long endTime = System.currentTimeMillis();
         System.out.println("Время выполнения обычной сортировки: " + (endTime - startTime) + " миллисекунд");
 
-        // Вывод первых 50 чисел из обычно отсортированного массива
+
         System.out.println("Первые 50 чисел из обычно отсортированного массива:");
         for (int i = 0; i < 50; i++) {
             System.out.print(arr[i] + " ");
         }
         System.out.println();
 
-        ForkJoinPool pool = new ForkJoinPool(4);
+        ForkJoinPool pool = new ForkJoinPool();
         startTime = System.currentTimeMillis();
-        int[] sortedArray = pool.invoke(new ParallelSortTask(arr1)); // Параллельная сортировка
+        int[] sortedArray = pool.invoke(new ParallelSortTask(arr1));
         endTime = System.currentTimeMillis();
         System.out.println("Время выполнения параллельной сортировки: " + (endTime - startTime) + " миллисекунд");
 
-        // Вывод первых 50 чисел из параллельно отсортированного массива
+
         System.out.println("Первые 50 чисел из параллельно отсортированного массива:");
         for (int i = 0; i < 50; i++) {
             System.out.print(sortedArray[i] + " ");
@@ -38,7 +38,7 @@ public class Main {
     public static int[] generateRandomArray(int size) {
         int[] arr = new int[size];
         for (int i = 0; i < size; i++) {
-            arr[i] = (int) (Math.random() * size * 10); // Генерируем случайные числа
+            arr[i] = (int) (Math.random() * size * 10);
         }
         return arr;
     }
